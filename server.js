@@ -1,17 +1,24 @@
 const express = require('express');
-const path = require('path');
+const cors = require('cors');
+const axios = require('axios');
+require('dotenv').config();
+
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-// Serve static files from the React build directory
-app.use(express.static(path.join(__dirname, 'build')));
+// IMPORTANT: Enable CORS for your frontend
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  credentials: true
+}));
 
-// Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
-  console.log(`📦 Serving shipment tracker application`);
-});
+// Your endpoints here...
+```
+
+### 4. **Check Frontend is Pointing to Correct URL**
+
+Create/update `.env.development` in your React app root:
+```
+REACT_APP_BACKEND_URL=http://localhost:3001
