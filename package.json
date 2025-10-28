@@ -1,0 +1,21 @@
+{
+  "name": "shipment-tracker-frontend",
+  "version": "1.0.0",
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "heroku-postbuild": "npm run build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "express": "^4.18.2",
+    "lucide-react": "^0.263.1"
+  }
+}
