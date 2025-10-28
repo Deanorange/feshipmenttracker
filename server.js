@@ -6,19 +6,28 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// IMPORTANT: Enable CORS for your frontend
+// CRITICAL: CORS configuration
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.FRONTEND_URL || 'https://shipment-tracker-frontend.herokuapp.com'
+];
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
 app.use(express.json());
 
-// Your endpoints here...
-```
+// Your API endpoints here...
+// (FedEx, DHL, health check endpoints)
 
-### 4. **Check Frontend is Pointing to Correct URL**
-
-Create/update `.env.development` in your React app root:
-```
-REACT_APP_BACKEND_URL=http://localhost:3001
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
